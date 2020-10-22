@@ -18,10 +18,12 @@ type Env struct {
 
 
 func main() {
+	fmt.Println("YOYOYO")
 	db, err := models.NewMySqlDB("phelps:1995@/GoLang")
     if err != nil {
        log.Panic(err)
-    }
+	}
+	fmt.Println("YOYOYO")
 	
 	db2, _ := models.NewMongoDB("mongodb+srv://phelps:1995@cluster0.ddb3v.mongodb.net/blog?retryWrites=true&w=majority")
 	env := &Env{db,db2}
@@ -39,6 +41,7 @@ func main() {
 	http.HandleFunc("/glu", env.GluHandler)
 	http.HandleFunc("/agg", env.AggHandler)
 	http.HandleFunc("/blog",env.BlogHomeHandler)
+	http.HandleFunc("/createBlog", env.CreateBlogHandler)
 	http.ListenAndServe(":8000", nil)
 }
 
@@ -47,6 +50,18 @@ var tpl *template.Template
 
 func init() {
 	tpl = template.Must(template.ParseGlob("./templates/*.gohtml"))
+}
+type cBlogStruct struct{
+	Title string
+	Heading string
+	Message string
+}
+func(env *Env) CreateBlogHandler(w http.ResponseWriter, r *http.Request){
+	c := cBlogStruct{"Create a blog today!", "Blog form", "Make a blog"}
+	err := tpl.ExecuteTemplate(w,"createblog.gohtml",c)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
 type blogStruct struct{

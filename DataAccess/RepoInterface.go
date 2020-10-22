@@ -7,7 +7,7 @@ import("API/Chess"
     "log"
     "context"
     "time"
-    
+    "fmt"
     "go.mongodb.org/mongo-driver/mongo/options")
 
 type GameStore interface {
@@ -28,20 +28,30 @@ type MySqlDb struct{
 	DB *sql.DB
 }
 func NewMySqlDB(dataSourceName string) (*MySqlDb, error) {
-    db, err := sql.Open("mysql", dataSourceName)
-    if err != nil {
-        return nil, err
+	
+	db, err := sql.Open("mysql", dataSourceName)
+	
+	db.Close()
+	db2, err2 := sql.Open("mysql", dataSourceName)
+    if err2 != nil {
+		
+		return nil, err
+		
     }
-    if err = db.Ping(); err != nil {
-        return nil, err
-    }
-    return &MySqlDb{db}, nil
+    if err2   = db.Ping(); err != nil {
+		fmt.Println("HEYHEYHEY3")
+		return nil, err
+		
+	}
+	
+    return &MySqlDb{db2}, nil
 }
 
 type MongoDb struct{
 	db *mongo.Client
 }
 func NewMongoDB(dataSourceName string) (*MongoDb, error){
+
     client, err := mongo.NewClient(options.Client().ApplyURI(dataSourceName))
 	
 	if err != nil{
