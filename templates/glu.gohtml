@@ -1,0 +1,35 @@
+{{template "header" .}}
+
+<div class="row">
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+    <form action="/agg" method="POST">
+        <table class="table table-light table-active">
+            <tr>
+                <td>
+                    <label for="uname">USERNAME:</label>
+                </td>
+                <td>
+                    <input type="text" id="uname" name="uname" value="Phezzalicious">
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label for="date">YEAR/MONTH: yyyy/mm</label>
+                </td>
+                <td>
+                    <input type="text" id="date" name="date" value="2020/03">
+                </td>
+            </tr>
+            <tr>
+                <td> <input type="submit" value="Submit"></td>
+               
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="col-sm-2"></div>
+    
+</div>
+{{template "footer" .}}

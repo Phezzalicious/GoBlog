@@ -1,0 +1,30 @@
+{{template "header" .}}
+
+
+<div class="row">
+    <table class="table table-dark table-striped table-hover">
+        <thead>
+            <th>
+                URL
+            </th>
+            <th>
+                White
+            </th>
+            <th>
+                Black
+            </th>
+            <th>
+                Result
+            </th>
+        </thead>
+        {{ range .Games }}
+            <tr>
+                <td>{{.URL}}</td>
+                <td>{{.White.Name}}</td>
+                <td>{{.Black.Name}}</td>
+                <td>White {{.White.Result}}</td>
+            </tr>
+        {{end}}
+    </table>
+</div>
+{{template "footer" .}}
