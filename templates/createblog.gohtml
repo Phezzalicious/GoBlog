@@ -2,29 +2,33 @@
 <div class="row">
 <div class="col-sm-4"></div>
 <div class="col-sm-4">
-    <form>
-    <div class="form-group">
-        <label for="title">Blog Title</label>
-        <input type="text" class="form-control" id="title" placeholder="Blog Title">
-    </div>
-    <div class="form-group">
-        <label for="author">Author</label>
-        <input type="text" class="form-control" id="author" placeholder="Homer Simpson">
-    </div>
-    <div class="form-group">
-        <label for="topic">Select Topic</label>
-        <select class="form-control" id="topic">
-        <option>Programming</option>
-        <option>Nature</option>
-        <option>Music</option>
-        <option>Comedy</option>
-        </select>
-    </div>
-   
-    <div class="form-group">
-        <label for="body">Body of Post</label>
-        <textarea class="form-control" id="body" rows="5"></textarea>
-    </div>
+    <form method="POST" action="/createBlog">
+        <div class="form-group">
+            <label for="title">Blog Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Blog Title">
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" id="author" placeholder="Homer Simpson">
+        </div>
+        <div class="form-group">
+            <label for="topic">Select Topic</label>
+            <select class="form-control" id="topic">
+                <option>Programming</option>
+                <option>Nature</option>
+                <option>Music</option>
+                <option>Comedy</option>
+                <option>Chess</option>
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label for="body">Body of Post</label>
+                <textarea class="form-control" id="body" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
 </div>
 <div class="col-sm-4"></div>

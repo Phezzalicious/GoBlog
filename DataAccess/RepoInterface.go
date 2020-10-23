@@ -3,11 +3,9 @@ import("API/Chess"
 	"database/sql"
     _ "github.com/go-sql-driver/mysql"
     "go.mongodb.org/mongo-driver/mongo"
-    "go.mongodb.org/mongo-driver/bson/primitive"
+    //"go.mongodb.org/mongo-driver/bson/primitive"
     "log"
-    "context"
-    "time"
-    "fmt"
+    //"fmt"
     "go.mongodb.org/mongo-driver/mongo/options")
 
 type GameStore interface {
@@ -18,9 +16,9 @@ type GameStore interface {
 	RequestDeleteByUrl(url string) bool
 }
 type BlogStore interface { 
-    Create() int64
+    Create(b BlogPost) interface{}
     UpdateByID() int64
-    ReadByID(id primitive.ObjectID) 
+    ReadAll() //BlogPost
 	DeleteByID() bool
 }
 
@@ -39,7 +37,7 @@ func NewMySqlDB(dataSourceName string) (*MySqlDb, error) {
 		
     }
     if err2   = db.Ping(); err != nil {
-		fmt.Println("HEYHEYHEY3")
+	
 		return nil, err
 		
 	}
@@ -48,7 +46,7 @@ func NewMySqlDB(dataSourceName string) (*MySqlDb, error) {
 }
 
 type MongoDb struct{
-	db *mongo.Client
+	DB *mongo.Client
 }
 func NewMongoDB(dataSourceName string) (*MongoDb, error){
 
@@ -57,25 +55,9 @@ func NewMongoDB(dataSourceName string) (*MongoDb, error){
 	if err != nil{
 		log.Fatal(err)
 	}
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	err = client.Connect(ctx)
-	if err != nil{
-		log.Fatal(err)
-	}
-    defer client.Disconnect(ctx)
+	
     return &MongoDb{client}, nil
-	//quickstartDatabase := client.Database("blog")
-	//postsCollection := quickstartDatabase.Collection("posts")
-
-	// blogResult, err := postsCollection.InsertOne(ctx, bson.D{
-	// 	{Key: "title", Value: "My journey in programming"},
-	// 	{Key: "topic", Value: "Code"},
-	// 	{Key: "Author", Value: "Phelps Merrell"},
-	// })
-	// if err!=nil{
-	// 	log.Fatal(err)
-	// }
-	// fmt.Println(blogResult.InsertedID)	
+	
 }
 
 
